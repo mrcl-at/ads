@@ -10,9 +10,11 @@ public class AdsPlugin {
 
     private final Bootstrapper bootstrapper;
     private final Database database;
+    private final PluginConfig config;
 
-    public AdsPlugin(Bootstrapper bootstrapper, Database database) throws Exception {
+    public AdsPlugin(Bootstrapper bootstrapper, PluginConfig config, Database database) throws Exception {
         this.bootstrapper = bootstrapper;
+        this.config = config;
         this.database = database;
 
         AdsAPI.setApi(new APIImpl(this));
