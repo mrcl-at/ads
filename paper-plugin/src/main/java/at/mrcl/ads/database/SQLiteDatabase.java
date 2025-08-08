@@ -28,12 +28,12 @@ public class SQLiteDatabase implements Database {
      * Creates a SQLite database using a default file name in the working directory.
      */
     public SQLiteDatabase(JavaPlugin plugin) {
-        this(new File(plugin.getDataFolder(), "farmworld.db").getPath());
+        this(new File(plugin.getDataFolder(), "ads.db").getPath());
     }
 
     /**
      * Creates a SQLite database pointing at the given file path.
-     * Accepts either a plain path (e.g. plugins/FarmWorld/farmworld.db) or a full jdbc:sqlite: URL.
+     * Accepts either a plain path (e.g. plugins/Ads/ads.db) or a full jdbc:sqlite: URL.
      *
      * @param filePath path to the SQLite database file, or a jdbc:sqlite: URL
      */

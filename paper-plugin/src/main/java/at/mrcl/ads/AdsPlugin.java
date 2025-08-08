@@ -1,34 +1,36 @@
 package at.mrcl.ads;
 
 import at.mrcl.ads.api.AdsAPI;
+import at.mrcl.ads.api.Bootstrapper;
 import at.mrcl.ads.api.database.Database;
 import at.mrcl.ads.api.database.DatabaseException;
-import at.mrcl.ads.database.SQLiteDatabase;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.slf4j.Logger;
 
-public class AdsPlugin extends JavaPlugin {
+public class AdsPlugin {
 
-    private Database database;
+    private final Bootstrapper bootstrapper;
+    private final Database database;
 
-    @Override
-    public void onEnable() {
-        try {
-            AdsAPI.setApi(new APIImpl(this));
-            this.database = new SQLiteDatabase(this);
+    public AdsPlugin(Bootstrapper bootstrapper, Database database) throws Exception {
+        this.bootstrapper = bootstrapper;
+        this.database = database;
 
-            this.database.connect();
-        } catch (Exception exception) {
-            getSLF4JLogger().error("Failed to enable plugin", exception);
-            getServer().getPluginManager().disablePlugin(this);
-        }
+        AdsAPI.setApi(new APIImpl(this));
     }
 
-    @Override
-    public void onDisable() {
+    public void enable() throws Exception {
+        this.database.connect();
+    }
+
+    public void disable() {
         try {
             this.database.disconnect();
         } catch (DatabaseException exception) {
-            getSLF4JLogger().error("Failed to disconnect from the database", exception);
+            getLogger().error("Failed to disconnect from the database", exception);
         }
+    }
+
+    public Logger getLogger() {
+        return this.bootstrapper.getSLF4JLogger();
     }
 }
