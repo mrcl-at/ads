@@ -1,0 +1,7 @@
+main: at.mrcl.ads.AdsPlugin
+name: Ads
+version: ${version}
+api-version: 1.21
+
+author: mrcl
+website: https://github.com/mrcl-at/ads
