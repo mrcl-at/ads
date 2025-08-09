@@ -9,6 +9,8 @@ import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.slf4j.Logger;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class AdsPlugin {
 
     private final Bootstrapper bootstrapper;
@@ -16,6 +18,8 @@ public class AdsPlugin {
     private final PluginConfig config;
 
     @Getter private final Economy economy;
+
+    private final AtomicBoolean enabled = new AtomicBoolean(false);
 
     public AdsPlugin(Bootstrapper bootstrapper, PluginConfig config, Database database) throws Exception {
         this.bootstrapper = bootstrapper;
@@ -27,11 +31,13 @@ public class AdsPlugin {
     }
 
     public void enable() throws Exception {
+        if (!this.enabled.compareAndSet(false, true)) throw new IllegalStateException("Plugin is already enabled!");
         this.database.connect();
         if (economy == null) getLogger().warn("Vault not found, disabling economy support");
     }
 
     public void disable() {
+        if (!this.enabled.compareAndSet(true, false)) throw new IllegalStateException("Plugin is already disabled!");
         try {
             this.database.disconnect();
         } catch (DatabaseException exception) {
