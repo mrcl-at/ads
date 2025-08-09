@@ -7,4 +7,9 @@ import lombok.AllArgsConstructor;
 public class APIImpl implements API {
 
     private final AdsPlugin plugin;
+
+    @Override
+    public boolean isVaultSupported() {
+        return this.plugin.getEconomy() != null;
+    }
 }
