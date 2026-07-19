@@ -1,0 +1,5 @@
+main: at.mrcl.ads.paper.AdsPlugin
+name: ads
+version: 1.0.1
+
+author: mrcl
