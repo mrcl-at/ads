@@ -1,5 +1,8 @@
 package at.mrcl.ads.api;
 
+import lombok.Getter;
+
+@Getter
 public class AdsAPI {
 
     private static API api;
@@ -9,7 +12,4 @@ public class AdsAPI {
         AdsAPI.api = api;
     }
 
-    public static API getApi() {
-        return api;
-    }
 }
