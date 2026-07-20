@@ -26,7 +26,7 @@ public class PluginConfig {
         if (file.exists()) return GSON.fromJson(Files.readString(file.toPath()), PluginConfig.class);
 
         return new PluginConfig(
-                new DatabaseConfig(DatabaseType.SQLITE, new SQLiteConnection())
+                new DatabaseConfig(DatabaseType.SQLITE, null)
         ).save(plugin);
     }
 
@@ -42,10 +42,6 @@ public class PluginConfig {
     @Getter
     public static class DatabaseConfig {
         private final DatabaseType type;
-        private final DatabaseConnection connection;
+        private final String url;
     }
-
-    public interface DatabaseConnection {}
-
-    public static class SQLiteConnection implements DatabaseConnection {}
 }
