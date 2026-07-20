@@ -1,6 +1,6 @@
 # Ads
 
-A Paper based plugin that lets players buy ad space in the chat.
+A Paper based plugin that lets players buy ad broadcast in the chat.
 
 ## Idea (General outline)
 
