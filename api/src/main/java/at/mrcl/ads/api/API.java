@@ -6,4 +6,6 @@ import org.jspecify.annotations.NullMarked;
 @NullMarked
 public interface API {
     DatabaseType getDatabaseType();
+
+    Ad.Builder buildAd();
 }
