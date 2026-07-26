@@ -1,12 +1,12 @@
 package at.mrcl.ads.api.ad;
 
-import at.mrcl.ads.api.database.DatabaseException;
 import org.bukkit.entity.Player;
 import org.jspecify.annotations.NullMarked;
 
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 @NullMarked
 public interface Ad {
@@ -20,7 +20,7 @@ public interface Ad {
     OffsetDateTime getCreated();
     OffsetDateTime getEdited();
 
-    void save() throws DatabaseException;
+    CompletableFuture<Ad> save();
 
     @NullMarked
     interface Builder {

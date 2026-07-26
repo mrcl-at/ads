@@ -2,7 +2,7 @@ package at.mrcl.ads.paper.ad;
 
 import at.mrcl.ads.api.ad.Ad;
 import at.mrcl.ads.api.ad.State;
-import at.mrcl.ads.api.database.DatabaseException;
+import at.mrcl.ads.api.event.AdSavedEvent;
 import at.mrcl.ads.paper.AdsPlugin;
 import lombok.AllArgsConstructor;
 import org.jspecify.annotations.NullMarked;
@@ -10,6 +10,7 @@ import org.jspecify.annotations.NullMarked;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 @AllArgsConstructor
 @NullMarked
@@ -69,11 +70,21 @@ public class AdImpl implements Ad {
     }
 
     @Override
-    public void save() throws DatabaseException {
-        final var plugin = AdsPlugin.getPlugin(AdsPlugin.class);
-        plugin.getSLF4JLogger().info("Saving ad {}", id);
-        plugin.getDatabase()
-                .getRepository()
-                .save(this);
+    public CompletableFuture<Ad> save() {
+        final var future = new CompletableFuture<Ad>();
+        CompletableFuture.runAsync(() -> {
+            try {
+                final var plugin = AdsPlugin.getPlugin(AdsPlugin.class);
+                plugin.getSLF4JLogger().info("Saving ad {}", id);
+                plugin.getDatabase()
+                        .getRepository()
+                        .save(this);
+                new AdSavedEvent(true, this).callEvent();
+                future.complete(this);
+            } catch (Exception exception) {
+                future.completeExceptionally(exception);
+            }
+        });
+        return future;
     }
 }
