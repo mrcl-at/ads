@@ -2,6 +2,7 @@ package at.mrcl.ads.paper.database.sqlite;
 
 import at.mrcl.ads.paper.AdsPlugin;
 import at.mrcl.ads.api.database.DatabaseException;
+import at.mrcl.ads.paper.database.Repository;
 import at.mrcl.ads.paper.database.SqlDatabase;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -19,9 +20,12 @@ public class SQLiteDatabase implements SqlDatabase {
     private @Nullable Connection connection;
     private final String url;
 
+    private final Repository repository;
+
     public SQLiteDatabase(AdsPlugin plugin) {
         if (!plugin.getDataFolder().exists()) plugin.getDataFolder().mkdirs();
         this.url = URL_PREFIX + new File(plugin.getDataFolder(), "ads.db").getPath();
+        this.repository = new SQLiteRepository(this);
     }
 
     @Override
@@ -52,5 +56,10 @@ public class SQLiteDatabase implements SqlDatabase {
         } catch (SQLException exception) {
             throw new DatabaseException(exception);
         }
+    }
+
+    @Override
+    public Repository getRepository() {
+        return repository;
     }
 }
