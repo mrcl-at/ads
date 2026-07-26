@@ -1,4 +1,4 @@
-package at.mrcl.ads.api;
+package at.mrcl.ads.api.ad;
 
 import at.mrcl.ads.api.database.DatabaseException;
 import org.bukkit.entity.Player;

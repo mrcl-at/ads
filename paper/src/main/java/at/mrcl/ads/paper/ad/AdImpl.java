@@ -1,8 +1,9 @@
-package at.mrcl.ads.paper;
+package at.mrcl.ads.paper.ad;
 
-import at.mrcl.ads.api.Ad;
-import at.mrcl.ads.api.State;
+import at.mrcl.ads.api.ad.Ad;
+import at.mrcl.ads.api.ad.State;
 import at.mrcl.ads.api.database.DatabaseException;
+import at.mrcl.ads.paper.AdsPlugin;
 import lombok.AllArgsConstructor;
 import org.jspecify.annotations.NullMarked;
 

@@ -1,9 +1,10 @@
 package at.mrcl.ads.paper;
 
 import at.mrcl.ads.api.API;
-import at.mrcl.ads.api.Ad;
+import at.mrcl.ads.api.ad.Ad;
 import at.mrcl.ads.api.QueueType;
 import at.mrcl.ads.api.database.DatabaseType;
+import at.mrcl.ads.paper.ad.BuilderImpl;
 import lombok.AllArgsConstructor;
 import org.jspecify.annotations.NullMarked;
 

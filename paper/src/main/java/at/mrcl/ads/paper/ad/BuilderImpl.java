@@ -1,7 +1,7 @@
-package at.mrcl.ads.paper;
+package at.mrcl.ads.paper.ad;
 
-import at.mrcl.ads.api.Ad;
-import at.mrcl.ads.api.AdBuilderException;
+import at.mrcl.ads.api.ad.Ad;
+import at.mrcl.ads.api.ad.AdBuilderException;
 import org.bukkit.entity.Player;
 import org.jspecify.annotations.NonNull;
 
