@@ -15,8 +15,10 @@ public class AdImpl implements Ad {
 
     private final UUID id;
     private final UUID publisher;
+
     private State state;
     private List<String> content;
+
     private OffsetDateTime inserted, created, edited;
 
     public AdImpl(UUID publisher, List<String> content) {

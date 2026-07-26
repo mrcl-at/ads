@@ -1,5 +1,6 @@
 package at.mrcl.ads.paper;
 
+import at.mrcl.ads.api.QueueType;
 import at.mrcl.ads.api.database.DatabaseType;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -19,6 +20,8 @@ public class PluginConfig {
     private static final Gson GSON = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
     private static final String FILENAME = "config.json";
 
+    private final QueueType queueType;
+    private final String timeline;
     private final DatabaseConfig database;
 
     public static PluginConfig read(@NonNull JavaPlugin plugin) throws IOException {
@@ -26,6 +29,8 @@ public class PluginConfig {
         if (file.exists()) return GSON.fromJson(Files.readString(file.toPath()), PluginConfig.class);
 
         return new PluginConfig(
+                QueueType.LIFO,
+                "0-24",
                 new DatabaseConfig(DatabaseType.SQLITE, null)
         ).save(plugin);
     }

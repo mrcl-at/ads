@@ -6,6 +6,8 @@ import org.jspecify.annotations.NullMarked;
 @NullMarked
 public interface API {
     DatabaseType getDatabaseType();
+    String getTimeline();
+    QueueType getQueueType();
 
     Ad.Builder buildAd();
 }
