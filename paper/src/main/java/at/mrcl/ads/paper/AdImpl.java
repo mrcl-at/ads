@@ -2,6 +2,7 @@ package at.mrcl.ads.paper;
 
 import at.mrcl.ads.api.Ad;
 import at.mrcl.ads.api.State;
+import at.mrcl.ads.api.database.DatabaseException;
 import lombok.AllArgsConstructor;
 import org.jspecify.annotations.NullMarked;
 
@@ -64,5 +65,14 @@ public class AdImpl implements Ad {
     @Override
     public OffsetDateTime getEdited() {
         return edited;
+    }
+
+    @Override
+    public void save() throws DatabaseException {
+        final var plugin = AdsPlugin.getPlugin(AdsPlugin.class);
+        plugin.getSLF4JLogger().info("Saving ad {}", id);
+        plugin.getDatabase()
+                .getRepository()
+                .save(this);
     }
 }

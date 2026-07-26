@@ -1,7 +1,7 @@
 package at.mrcl.ads.paper.database.sqlite;
 
 import at.mrcl.ads.paper.AdsPlugin;
-import at.mrcl.ads.paper.database.DatabaseException;
+import at.mrcl.ads.api.database.DatabaseException;
 import at.mrcl.ads.paper.database.SqlDatabase;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -36,6 +36,8 @@ public class SQLiteDatabase implements SqlDatabase {
                 disconnect();
             }
             this.connection = DriverManager.getConnection(url);
+            this.connection.createStatement()
+                    .execute("CREATE TABLE IF NOT EXISTS ads (id VARCHAR(36) PRIMARY KEY, publisher VARCHAR(36), state TEXT, content TEXT, created INTEGER, inserted INTEGER, edited INTEGER)");
         } catch (SQLException exception) {
             throw new DatabaseException(exception);
         }

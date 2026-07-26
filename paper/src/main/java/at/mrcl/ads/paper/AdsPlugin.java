@@ -2,7 +2,7 @@ package at.mrcl.ads.paper;
 
 import at.mrcl.ads.api.AdsAPI;
 import at.mrcl.ads.paper.database.Database;
-import at.mrcl.ads.paper.database.DatabaseException;
+import at.mrcl.ads.api.database.DatabaseException;
 import at.mrcl.ads.paper.database.sqlite.SQLiteDatabase;
 import lombok.Getter;
 import org.bstats.bukkit.Metrics;

@@ -1,5 +1,6 @@
 package at.mrcl.ads.api;
 
+import at.mrcl.ads.api.database.DatabaseException;
 import org.bukkit.entity.Player;
 import org.jspecify.annotations.NullMarked;
 
@@ -18,6 +19,8 @@ public interface Ad {
     OffsetDateTime getInserted();
     OffsetDateTime getCreated();
     OffsetDateTime getEdited();
+
+    void save() throws DatabaseException;
 
     @NullMarked
     interface Builder {

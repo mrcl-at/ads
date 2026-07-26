@@ -1,4 +1,4 @@
-package at.mrcl.ads.paper.database;
+package at.mrcl.ads.api.database;
 
 public class DatabaseException extends Exception {
     public DatabaseException(String message) {
