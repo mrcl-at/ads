@@ -12,3 +12,4 @@ Players can use in-game currency to buy ad space in the chat. The purchased ad (
 2. The plugin sends the ad in a fixed interval (e.g. every 10 minutes) to all players in chat.
 3. After some time or number of broadcasts, the ad expires.
 
+## [Discord](https://discord.gg/8pSzR4XYPw)
