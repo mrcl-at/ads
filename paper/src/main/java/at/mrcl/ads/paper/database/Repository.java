@@ -9,4 +9,5 @@ public interface Repository {
     Database getDatabase();
 
     void save(Ad ad) throws DatabaseException;
+    boolean delete(Ad ad) throws DatabaseException;
 }

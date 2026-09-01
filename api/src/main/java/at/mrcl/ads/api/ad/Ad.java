@@ -21,6 +21,7 @@ public interface Ad {
     OffsetDateTime getEdited();
 
     CompletableFuture<Ad> save();
+    CompletableFuture<Boolean> delete();
 
     @NullMarked
     interface Builder {

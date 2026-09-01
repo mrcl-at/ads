@@ -43,4 +43,17 @@ public class SQLiteRepository implements Repository {
             throw new DatabaseException(exception);
         }
     }
+
+    @Override
+    public boolean delete(Ad ad) throws DatabaseException {
+        try {
+            final var statement = this.database
+                    .getConnection()
+                    .prepareStatement("DELETE FROM ads WHERE id = ?");
+            statement.setString(1, ad.getId().toString());
+            return statement.executeUpdate() > 0;
+        } catch (Exception exception) {
+            throw new DatabaseException(exception);
+        }
+    }
 }

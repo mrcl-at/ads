@@ -2,6 +2,7 @@ package at.mrcl.ads.paper.ad;
 
 import at.mrcl.ads.api.ad.Ad;
 import at.mrcl.ads.api.ad.State;
+import at.mrcl.ads.api.event.AdDeletedEvent;
 import at.mrcl.ads.api.event.AdSavedEvent;
 import at.mrcl.ads.paper.AdsPlugin;
 import lombok.AllArgsConstructor;
@@ -81,6 +82,27 @@ public class AdImpl implements Ad {
                         .save(this);
                 new AdSavedEvent(true, this).callEvent();
                 future.complete(this);
+            } catch (Exception exception) {
+                future.completeExceptionally(exception);
+            }
+        });
+        return future;
+    }
+
+    @Override
+    public CompletableFuture<Boolean> delete() {
+        final var future = new CompletableFuture<Boolean>();
+        CompletableFuture.runAsync(() -> {
+            try {
+                final var plugin = AdsPlugin.getPlugin(AdsPlugin.class);
+                plugin.getSLF4JLogger().info("Deleting ad {}", id);
+                final var result = plugin.getDatabase()
+                        .getRepository()
+                        .delete(this);
+                if (result) {
+                    new AdDeletedEvent(true, this).callEvent();
+                }
+                future.complete(result);
             } catch (Exception exception) {
                 future.completeExceptionally(exception);
             }
