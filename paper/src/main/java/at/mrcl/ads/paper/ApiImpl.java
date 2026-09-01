@@ -14,6 +14,11 @@ public class ApiImpl implements API {
     private final AdsPlugin plugin;
 
     @Override
+    public int getMaxLines() {
+        return plugin.getConfig().getMaxLines();
+    }
+
+    @Override
     public DatabaseType getDatabaseType() {
         return plugin.getConfig().getDatabase().getType();
     }
