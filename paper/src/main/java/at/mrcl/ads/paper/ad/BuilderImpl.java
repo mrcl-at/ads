@@ -46,6 +46,7 @@ public class BuilderImpl implements Ad.Builder {
     public @NonNull CompletableFuture<Ad> build() throws AdBuilderException {
         if (publisher == null) throw new AdBuilderException(AdBuilderException.Reason.PUBLISHER);
         if (content == null || content.isEmpty()) throw new AdBuilderException(AdBuilderException.Reason.CONTENT);
-        return new AdImpl(publisher, content).save();
+        final var ad = new AdImpl(publisher, content);
+        return ad.save().thenApply(result -> result ? ad : null);
     }
 }

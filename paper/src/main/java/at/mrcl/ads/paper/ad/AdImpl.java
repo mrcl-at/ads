@@ -71,17 +71,21 @@ public class AdImpl implements Ad {
     }
 
     @Override
-    public CompletableFuture<Ad> save() {
-        final var future = new CompletableFuture<Ad>();
+    public CompletableFuture<Boolean> save() {
+        final var future = new CompletableFuture<Boolean>();
         CompletableFuture.runAsync(() -> {
             try {
                 final var plugin = AdsPlugin.getPlugin(AdsPlugin.class);
                 plugin.getSLF4JLogger().info("Saving ad {}", id);
-                plugin.getDatabase()
+                final var result = plugin.getDatabase()
                         .getRepository()
                         .save(this);
-                new AdSavedEvent(true, this).callEvent();
-                future.complete(this);
+                if (result) {
+                    new AdSavedEvent(true, this).callEvent();
+                } else {
+                    plugin.getSLF4JLogger().warn("Failed to save ad {}", id);
+                }
+                future.complete(result);
             } catch (Exception exception) {
                 future.completeExceptionally(exception);
             }

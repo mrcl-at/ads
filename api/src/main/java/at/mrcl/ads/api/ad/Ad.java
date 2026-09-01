@@ -20,7 +20,7 @@ public interface Ad {
     OffsetDateTime getCreated();
     OffsetDateTime getEdited();
 
-    CompletableFuture<Ad> save();
+    CompletableFuture<Boolean> save();
     CompletableFuture<Boolean> delete();
 
     @NullMarked

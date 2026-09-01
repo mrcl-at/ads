@@ -26,7 +26,7 @@ public class SQLiteRepository implements Repository {
     }
 
     @Override
-    public void save(Ad ad) throws DatabaseException {
+    public boolean save(Ad ad) throws DatabaseException {
         try {
             final var statement = this.database
                     .getConnection()
@@ -38,7 +38,7 @@ public class SQLiteRepository implements Repository {
             statement.setLong(5, ad.getCreated().toEpochSecond());
             statement.setLong(6, ad.getInserted().toEpochSecond());
             statement.setLong(7, ad.getEdited().toEpochSecond());
-            statement.executeUpdate();
+            return statement.executeUpdate() > 0;
         } catch (Exception exception) {
             throw new DatabaseException(exception);
         }
