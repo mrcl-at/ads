@@ -27,8 +27,8 @@ public interface Ad {
         Builder publisher(Player publisher);
         Builder publisher(UUID publisher);
 
-        Builder addLine(String line);
-        Builder editLine(int index, String line);
+        Builder line(String line);
+        Builder line(int index, String line);
 
         Ad build() throws AdBuilderException;
     }

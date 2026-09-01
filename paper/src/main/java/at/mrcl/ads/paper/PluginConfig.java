@@ -4,6 +4,7 @@ import at.mrcl.ads.api.QueueType;
 import at.mrcl.ads.api.database.DatabaseType;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -22,6 +23,8 @@ public class PluginConfig {
 
     private final QueueType queueType;
     private final String timeline;
+    @SerializedName("max_lines")
+    private final int maxLines;
     private final DatabaseConfig database;
 
     public static PluginConfig read(@NonNull JavaPlugin plugin) throws IOException {
@@ -31,6 +34,7 @@ public class PluginConfig {
         return new PluginConfig(
                 QueueType.LIFO,
                 "0-24",
+                3,
                 new DatabaseConfig(DatabaseType.SQLITE, null)
         ).save(plugin);
     }

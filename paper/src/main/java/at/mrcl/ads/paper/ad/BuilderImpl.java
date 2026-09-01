@@ -1,5 +1,6 @@
 package at.mrcl.ads.paper.ad;
 
+import at.mrcl.ads.api.AdsAPI;
 import at.mrcl.ads.api.ad.Ad;
 import at.mrcl.ads.api.ad.AdBuilderException;
 import org.bukkit.entity.Player;
@@ -25,17 +26,17 @@ public class BuilderImpl implements Ad.Builder {
     }
 
     @Override
-    public Ad.@NonNull Builder addLine(@NonNull String line) {
-        if (this.content == null) this.content = new ArrayList<>();
+    public Ad.@NonNull Builder line(@NonNull String line) {
+        if (this.content == null) this.content = new ArrayList<>(AdsAPI.getApi().getMaxLines());
         this.content.add(line);
         return this;
     }
 
     @Override
-    public Ad.@NonNull Builder editLine(int index, @NonNull String line) {
+    public Ad.@NonNull Builder line(int index, @NonNull String line) {
+        if (index >= AdsAPI.getApi().getMaxLines()) throw new ArrayIndexOutOfBoundsException();
         if (index < 0) throw new IllegalArgumentException();
-        if (this.content == null) this.content = new ArrayList<>(++index);
-        if (this.content.size() - 1 < index) throw new ArrayIndexOutOfBoundsException();
+        if (this.content == null) this.content = new ArrayList<>(AdsAPI.getApi().getMaxLines());
         this.content.set(index, line);
         return this;
     }
