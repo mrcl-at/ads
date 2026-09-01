@@ -23,6 +23,8 @@ public interface Ad {
     CompletableFuture<Boolean> save();
     CompletableFuture<Boolean> delete();
 
+    void broadcast();
+
     @NullMarked
     interface Builder {
         Builder publisher(Player publisher);

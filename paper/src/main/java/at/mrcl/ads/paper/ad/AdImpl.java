@@ -6,6 +6,8 @@ import at.mrcl.ads.api.event.AdDeletedEvent;
 import at.mrcl.ads.api.event.AdSavedEvent;
 import at.mrcl.ads.paper.AdsPlugin;
 import lombok.AllArgsConstructor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Bukkit;
 import org.jspecify.annotations.NullMarked;
 
 import java.time.OffsetDateTime;
@@ -114,5 +116,25 @@ public class AdImpl implements Ad {
             }
         });
         return future;
+    }
+
+    @Override
+    public void broadcast() {
+        if (this.content == null) throw new NullPointerException("Content cannot be null");
+        if (this.content.isEmpty()) throw new IllegalArgumentException("Content cannot be empty");
+        final var message = MiniMessage.miniMessage().deserialize(parseContent());
+        Bukkit.broadcast(message);
+    }
+
+    private String parseContent() {final var stringBuilder = new StringBuilder();
+        for (int i = 0; i < this.content.size(); i++) {
+            final var line = this.content.get(i);
+            if (line == null) continue;
+
+            if (!stringBuilder.isEmpty()) stringBuilder.append("\n");
+            stringBuilder.append(line);
+        }
+        if (stringBuilder.isEmpty()) throw new IllegalArgumentException("Content cannot be empty");
+        return stringBuilder.toString();
     }
 }
