@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.jspecify.annotations.NonNull;
 
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 public class BuilderImpl implements Ad.Builder {
 
@@ -42,11 +43,9 @@ public class BuilderImpl implements Ad.Builder {
     }
 
     @Override
-    public @NonNull Ad build() throws AdBuilderException {
+    public @NonNull CompletableFuture<Ad> build() throws AdBuilderException {
         if (publisher == null) throw new AdBuilderException(AdBuilderException.Reason.PUBLISHER);
         if (content == null || content.isEmpty()) throw new AdBuilderException(AdBuilderException.Reason.CONTENT);
-        final var ad = new AdImpl(publisher, content);
-        // TODO save
-        return ad;
+        return new AdImpl(publisher, content).save();
     }
 }

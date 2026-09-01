@@ -30,6 +30,6 @@ public interface Ad {
         Builder line(String line);
         Builder line(int index, String line);
 
-        Ad build() throws AdBuilderException;
+        CompletableFuture<Ad> build() throws AdBuilderException;
     }
 }
