@@ -105,6 +105,8 @@ public class AdImpl implements Ad {
                         .delete(this);
                 if (result) {
                     new AdDeletedEvent(true, this).callEvent();
+                } else {
+                    plugin.getSLF4JLogger().warn("Failed to delete ad {}", id);
                 }
                 future.complete(result);
             } catch (Exception exception) {
