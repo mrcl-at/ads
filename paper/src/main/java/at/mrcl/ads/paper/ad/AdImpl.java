@@ -74,8 +74,7 @@ public class AdImpl implements Ad {
 
     @Override
     public CompletableFuture<Boolean> save() {
-        final var future = new CompletableFuture<Boolean>();
-        CompletableFuture.runAsync(() -> {
+        return CompletableFuture.supplyAsync(() -> {
             try {
                 final var plugin = AdsPlugin.getPlugin(AdsPlugin.class);
                 plugin.getSLF4JLogger().info("Saving ad {}", id);
@@ -87,18 +86,16 @@ public class AdImpl implements Ad {
                 } else {
                     plugin.getSLF4JLogger().warn("Failed to save ad {}", id);
                 }
-                future.complete(result);
+                return result;
             } catch (Exception exception) {
-                future.completeExceptionally(exception);
+                throw new RuntimeException(exception);
             }
         });
-        return future;
     }
 
     @Override
     public CompletableFuture<Boolean> delete() {
-        final var future = new CompletableFuture<Boolean>();
-        CompletableFuture.runAsync(() -> {
+        return CompletableFuture.supplyAsync(() -> {
             try {
                 final var plugin = AdsPlugin.getPlugin(AdsPlugin.class);
                 plugin.getSLF4JLogger().info("Deleting ad {}", id);
@@ -110,12 +107,11 @@ public class AdImpl implements Ad {
                 } else {
                     plugin.getSLF4JLogger().warn("Failed to delete ad {}", id);
                 }
-                future.complete(result);
+                return result;
             } catch (Exception exception) {
-                future.completeExceptionally(exception);
+                throw new RuntimeException(exception);
             }
         });
-        return future;
     }
 
     @Override
