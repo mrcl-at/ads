@@ -122,14 +122,20 @@ public class AdImpl implements Ad {
         Bukkit.broadcast(message);
     }
 
-    private String parseContent() {final var stringBuilder = new StringBuilder();
+    private String parseContent() {
+        final var stringBuilder = new StringBuilder();
         for (int i = 0; i < this.content.size(); i++) {
             final var line = this.content.get(i);
-            if (line == null) continue;
+
+            if (line == null) {
+                stringBuilder.append("\n");
+                continue;
+            }
 
             if (!stringBuilder.isEmpty()) stringBuilder.append("\n");
             stringBuilder.append(line);
         }
+
         if (stringBuilder.isEmpty()) throw new IllegalArgumentException("Content cannot be empty");
         return stringBuilder.toString();
     }
