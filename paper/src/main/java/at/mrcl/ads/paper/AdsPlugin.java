@@ -31,9 +31,9 @@ public class AdsPlugin extends JavaPlugin {
     }
 
     private Database initAndGetDatabase() throws DatabaseException {
-        return switch (config.getDatabase().getType()) {
+        return switch (config.database().type()) {
             case SQLITE -> new SQLiteDatabase(this);
-            default -> throw new DatabaseException("Unsupported database type: " + config.getDatabase().getType());
+            default -> throw new DatabaseException("Unsupported database type: " + config.database().type());
         };
     }
 

@@ -5,8 +5,6 @@ import at.mrcl.ads.api.database.DatabaseType;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jspecify.annotations.NonNull;
 
@@ -14,18 +12,15 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-@AllArgsConstructor
-@Getter
-public class PluginConfig {
+public record PluginConfig(
+        @SerializedName("queue_type") QueueType queueType,
+        String timeline,
+        @SerializedName("max_lines") int maxLines,
+        DatabaseConfig database
+) {
 
     private static final Gson GSON = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
     private static final String FILENAME = "config.json";
-
-    private final QueueType queueType;
-    private final String timeline;
-    @SerializedName("max_lines")
-    private final int maxLines;
-    private final DatabaseConfig database;
 
     public static PluginConfig read(@NonNull JavaPlugin plugin) throws IOException {
         final var file = new File(plugin.getDataFolder(), FILENAME);
@@ -47,10 +42,9 @@ public class PluginConfig {
         return this;
     }
 
-    @AllArgsConstructor
-    @Getter
-    public static class DatabaseConfig {
-        private final DatabaseType type;
-        private final String url;
+    public record DatabaseConfig(
+            DatabaseType type,
+            String url
+    ) {
     }
 }
