@@ -12,5 +12,5 @@ public interface API {
     String getTimeline();
     QueueType getQueueType();
 
-    Ad.Builder buildAd();
+    Ad.Builder builder();
 }

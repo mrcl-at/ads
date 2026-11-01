@@ -34,7 +34,7 @@ public class ApiImpl implements API {
     }
 
     @Override
-    public Ad.Builder buildAd() {
+    public Ad.Builder builder() {
         return new BuilderImpl();
     }
 }
