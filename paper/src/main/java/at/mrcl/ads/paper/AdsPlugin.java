@@ -10,7 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class AdsPlugin extends JavaPlugin {
 
-    private static final int BSTATS_ID = 32775;
+    private static final int B_STATS_ID = 32775;
 
     @Getter private PluginConfig config;
     @Getter private Database database;
@@ -23,7 +23,7 @@ public class AdsPlugin extends JavaPlugin {
             this.config = PluginConfig.read();
             this.database = initAndGetDatabase();
 
-            new Metrics(this, BSTATS_ID);
+            new Metrics(this, B_STATS_ID);
         } catch (Exception exception) {
             getSLF4JLogger().error("Failed to enable plugin!", exception);
             getServer().getPluginManager().disablePlugin(this);
