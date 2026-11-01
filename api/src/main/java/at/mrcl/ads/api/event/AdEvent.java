@@ -1,6 +1,6 @@
 package at.mrcl.ads.api.event;
 
-import at.mrcl.ads.api.ad.Ad;
+import at.mrcl.ads.api.Ad;
 import org.bukkit.event.Event;
 import org.jspecify.annotations.NullMarked;
 

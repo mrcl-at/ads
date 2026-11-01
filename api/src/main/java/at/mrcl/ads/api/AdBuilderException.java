@@ -1,4 +1,4 @@
-package at.mrcl.ads.api.ad;
+package at.mrcl.ads.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package at.mrcl.ads.api.ad;
+package at.mrcl.ads.api;
 
 import org.bukkit.entity.Player;
 import org.jspecify.annotations.NullMarked;

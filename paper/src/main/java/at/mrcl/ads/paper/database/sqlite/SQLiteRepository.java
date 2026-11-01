@@ -1,6 +1,6 @@
 package at.mrcl.ads.paper.database.sqlite;
 
-import at.mrcl.ads.api.ad.Ad;
+import at.mrcl.ads.api.Ad;
 import at.mrcl.ads.paper.database.Database;
 import at.mrcl.ads.api.database.DatabaseException;
 import at.mrcl.ads.paper.database.Repository;
@@ -26,7 +26,7 @@ public class SQLiteRepository implements Repository {
     }
 
     @Override
-    public boolean save(Ad ad) throws DatabaseException {
+    public boolean insert(Ad ad) throws DatabaseException {
         try {
             final var statement = this.database
                     .getConnection()

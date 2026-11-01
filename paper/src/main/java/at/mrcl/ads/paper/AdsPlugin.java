@@ -10,7 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class AdsPlugin extends JavaPlugin {
 
-    private static final int BSTATS_ID = 32775;
+    private static final int B_STATS_ID = 32775;
 
     @Getter private PluginConfig config;
     @Getter private Database database;
@@ -20,10 +20,10 @@ public class AdsPlugin extends JavaPlugin {
         try {
             AdsAPI.setApi(new ApiImpl(this));
 
-            this.config = PluginConfig.read(this);
+            this.config = PluginConfig.read();
             this.database = initAndGetDatabase();
 
-            new Metrics(this, BSTATS_ID);
+            new Metrics(this, B_STATS_ID);
         } catch (Exception exception) {
             getSLF4JLogger().error("Failed to enable plugin!", exception);
             getServer().getPluginManager().disablePlugin(this);
@@ -31,9 +31,9 @@ public class AdsPlugin extends JavaPlugin {
     }
 
     private Database initAndGetDatabase() throws DatabaseException {
-        return switch (config.getDatabase().getType()) {
+        return switch (config.database().type()) {
             case SQLITE -> new SQLiteDatabase(this);
-            default -> throw new DatabaseException("Unsupported database type: " + config.getDatabase().getType());
+            default -> throw new DatabaseException("Unsupported database type: " + config.database().type());
         };
     }
 

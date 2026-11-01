@@ -1,6 +1,5 @@
 package at.mrcl.ads.api;
 
-import at.mrcl.ads.api.ad.Ad;
 import at.mrcl.ads.api.database.DatabaseType;
 import org.jspecify.annotations.NullMarked;
 
@@ -12,5 +11,5 @@ public interface API {
     String getTimeline();
     QueueType getQueueType();
 
-    Ad.Builder buildAd();
+    Ad.Builder builder();
 }

@@ -1,7 +1,7 @@
 package at.mrcl.ads.paper.ad;
 
-import at.mrcl.ads.api.ad.Ad;
-import at.mrcl.ads.api.ad.State;
+import at.mrcl.ads.api.Ad;
+import at.mrcl.ads.api.State;
 import at.mrcl.ads.api.event.AdDeletedEvent;
 import at.mrcl.ads.api.event.AdSavedEvent;
 import at.mrcl.ads.paper.AdsPlugin;
@@ -74,31 +74,28 @@ public class AdImpl implements Ad {
 
     @Override
     public CompletableFuture<Boolean> save() {
-        final var future = new CompletableFuture<Boolean>();
-        CompletableFuture.runAsync(() -> {
+        return CompletableFuture.supplyAsync(() -> {
             try {
                 final var plugin = AdsPlugin.getPlugin(AdsPlugin.class);
                 plugin.getSLF4JLogger().info("Saving ad {}", id);
                 final var result = plugin.getDatabase()
                         .getRepository()
-                        .save(this);
+                        .insert(this);
                 if (result) {
                     new AdSavedEvent(true, this).callEvent();
                 } else {
                     plugin.getSLF4JLogger().warn("Failed to save ad {}", id);
                 }
-                future.complete(result);
+                return result;
             } catch (Exception exception) {
-                future.completeExceptionally(exception);
+                throw new RuntimeException(exception);
             }
         });
-        return future;
     }
 
     @Override
     public CompletableFuture<Boolean> delete() {
-        final var future = new CompletableFuture<Boolean>();
-        CompletableFuture.runAsync(() -> {
+        return CompletableFuture.supplyAsync(() -> {
             try {
                 final var plugin = AdsPlugin.getPlugin(AdsPlugin.class);
                 plugin.getSLF4JLogger().info("Deleting ad {}", id);
@@ -110,12 +107,11 @@ public class AdImpl implements Ad {
                 } else {
                     plugin.getSLF4JLogger().warn("Failed to delete ad {}", id);
                 }
-                future.complete(result);
+                return result;
             } catch (Exception exception) {
-                future.completeExceptionally(exception);
+                throw new RuntimeException(exception);
             }
         });
-        return future;
     }
 
     @Override
@@ -126,14 +122,17 @@ public class AdImpl implements Ad {
         Bukkit.broadcast(message);
     }
 
-    private String parseContent() {final var stringBuilder = new StringBuilder();
+    private String parseContent() {
+        final var stringBuilder = new StringBuilder();
         for (int i = 0; i < this.content.size(); i++) {
             final var line = this.content.get(i);
+
             if (line == null) continue;
 
             if (!stringBuilder.isEmpty()) stringBuilder.append("\n");
             stringBuilder.append(line);
         }
+
         if (stringBuilder.isEmpty()) throw new IllegalArgumentException("Content cannot be empty");
         return stringBuilder.toString();
     }
