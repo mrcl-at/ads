@@ -51,8 +51,8 @@ public class SQLiteDatabase implements SqlDatabase {
     public void disconnect() throws DatabaseException {
         try {
             if (this.connection == null) return;
-            if (this.connection.isClosed()) return;
-            this.connection.close();
+            if (this.connection.isClosed()) this.connection.close();
+            this.connection = null;
         } catch (SQLException exception) {
             throw new DatabaseException(exception);
         }
