@@ -35,8 +35,10 @@ public record PluginConfig(
     public PluginConfig save() throws IOException {
         final var plugin = AdsPlugin.getPlugin(AdsPlugin.class);
         if (!plugin.getDataFolder().exists()) plugin.getDataFolder().mkdirs();
+
         final var file = new File(plugin.getDataFolder(), FILENAME);
         if (!file.exists()) file.createNewFile();
+
         Files.writeString(file.toPath(), GSON.toJson(this));
         return this;
     }
