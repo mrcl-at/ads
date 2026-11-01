@@ -1,7 +1,7 @@
 package at.mrcl.ads.paper.ad;
 
-import at.mrcl.ads.api.ad.Ad;
-import at.mrcl.ads.api.ad.State;
+import at.mrcl.ads.api.Ad;
+import at.mrcl.ads.api.State;
 import at.mrcl.ads.api.event.AdDeletedEvent;
 import at.mrcl.ads.api.event.AdSavedEvent;
 import at.mrcl.ads.paper.AdsPlugin;
