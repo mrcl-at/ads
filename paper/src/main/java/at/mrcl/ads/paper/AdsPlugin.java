@@ -20,7 +20,7 @@ public class AdsPlugin extends JavaPlugin {
         try {
             AdsAPI.setApi(new ApiImpl(this));
 
-            this.config = PluginConfig.read(this);
+            this.config = PluginConfig.read();
             this.database = initAndGetDatabase();
 
             new Metrics(this, BSTATS_ID);
