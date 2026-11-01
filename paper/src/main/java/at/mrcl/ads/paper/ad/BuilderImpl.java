@@ -35,8 +35,7 @@ public class BuilderImpl implements Ad.Builder {
 
     @Override
     public Ad.@NonNull Builder line(int index, @NonNull String line) {
-        if (index >= AdsAPI.getApi().getMaxLines()) throw new ArrayIndexOutOfBoundsException();
-        if (index < 0) throw new IllegalArgumentException();
+        if (index >= AdsAPI.getApi().getMaxLines() || index < 0) throw new ArrayIndexOutOfBoundsException();
         if (this.content == null) this.content = new ArrayList<>(AdsAPI.getApi().getMaxLines());
         this.content.set(index, line);
         return this;
