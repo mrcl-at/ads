@@ -127,10 +127,7 @@ public class AdImpl implements Ad {
         for (int i = 0; i < this.content.size(); i++) {
             final var line = this.content.get(i);
 
-            if (line == null) {
-                stringBuilder.append("\n");
-                continue;
-            }
+            if (line == null) continue;
 
             if (!stringBuilder.isEmpty()) stringBuilder.append("\n");
             stringBuilder.append(line);
