@@ -26,7 +26,7 @@ public class SQLiteRepository implements Repository {
     }
 
     @Override
-    public boolean save(Ad ad) throws DatabaseException {
+    public boolean insert(Ad ad) throws DatabaseException {
         try {
             final var statement = this.database
                     .getConnection()

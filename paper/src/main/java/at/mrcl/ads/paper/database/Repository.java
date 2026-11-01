@@ -8,6 +8,6 @@ import org.jspecify.annotations.NullMarked;
 public interface Repository {
     Database getDatabase();
 
-    boolean save(Ad ad) throws DatabaseException;
+    boolean insert(Ad ad) throws DatabaseException;
     boolean delete(Ad ad) throws DatabaseException;
 }

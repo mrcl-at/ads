@@ -81,7 +81,7 @@ public class AdImpl implements Ad {
                 plugin.getSLF4JLogger().info("Saving ad {}", id);
                 final var result = plugin.getDatabase()
                         .getRepository()
-                        .save(this);
+                        .insert(this);
                 if (result) {
                     new AdSavedEvent(true, this).callEvent();
                 } else {
